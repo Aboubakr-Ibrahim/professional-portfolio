@@ -2,8 +2,15 @@ const header = document.querySelector('.site-header');
 const menuButton = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.primary-nav');
 
+const progress = document.createElement('div');
+progress.className = 'scroll-progress';
+progress.setAttribute('aria-hidden', 'true');
+document.body.prepend(progress);
+
 window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 25);
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  progress.style.transform = `scaleX(${scrollable > 0 ? window.scrollY / scrollable : 0})`;
 }, { passive: true });
 
 menuButton.addEventListener('click', () => {
@@ -92,3 +99,53 @@ if (heroVisual && canAnimateDepth) {
     heroVisual.style.setProperty('--quality-y', '0px');
   });
 }
+
+const motionTargets = document.querySelectorAll('.pillar, .experience-card, .project-card, .credential-card, .skill-group, .cv-primary, .cv-variants a, .evidence-item');
+motionTargets.forEach((target, index) => {
+  target.classList.add('motion-card');
+  if (target.classList.contains('reveal')) target.style.transitionDelay = `${Math.min(index % 4, 3) * 55}ms`;
+});
+
+document.querySelectorAll('.button').forEach(button => button.classList.add('magnetic'));
+
+if (canAnimateDepth) {
+  window.addEventListener('pointermove', event => {
+    document.body.style.setProperty('--cursor-x', `${event.clientX}px`);
+    document.body.style.setProperty('--cursor-y', `${event.clientY}px`);
+  }, { passive: true });
+
+  motionTargets.forEach(target => {
+    target.addEventListener('pointermove', event => {
+      const bounds = target.getBoundingClientRect();
+      const px = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const py = (event.clientY - bounds.top) / bounds.height - 0.5;
+      target.style.setProperty('--rx', `${py * -3.2}deg`);
+      target.style.setProperty('--ry', `${px * 3.2}deg`);
+    });
+    target.addEventListener('pointerleave', () => {
+      target.style.setProperty('--rx', '0deg');
+      target.style.setProperty('--ry', '0deg');
+    });
+  });
+
+  document.querySelectorAll('.magnetic').forEach(button => {
+    button.addEventListener('pointermove', event => {
+      const bounds = button.getBoundingClientRect();
+      button.style.setProperty('--mag-x', `${(event.clientX - bounds.left - bounds.width / 2) * 0.08}px`);
+      button.style.setProperty('--mag-y', `${(event.clientY - bounds.top - bounds.height / 2) * 0.08}px`);
+    });
+    button.addEventListener('pointerleave', () => {
+      button.style.setProperty('--mag-x', '0px');
+      button.style.setProperty('--mag-y', '0px');
+    });
+  });
+}
+
+document.querySelectorAll('main > .section').forEach((section, index, sections) => {
+  if (index === sections.length - 1) return;
+  const flow = document.createElement('div');
+  flow.className = 'section-flow';
+  flow.setAttribute('aria-hidden', 'true');
+  flow.innerHTML = '<svg viewBox="0 0 420 38"><path d="M0 20h145l10-10 12 22 15-30 18 18h42l8-8 9 8h161"/></svg>';
+  section.after(flow);
+});
