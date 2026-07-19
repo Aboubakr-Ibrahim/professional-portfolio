@@ -70,3 +70,25 @@ modal.addEventListener('click', event => {
 });
 
 document.querySelector('#year').textContent = new Date().getFullYear();
+
+const heroVisual = document.querySelector('.hero-visual');
+const canAnimateDepth = window.matchMedia('(pointer: fine)').matches && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (heroVisual && canAnimateDepth) {
+  heroVisual.addEventListener('pointermove', event => {
+    const bounds = heroVisual.getBoundingClientRect();
+    const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 18;
+    const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 18;
+    heroVisual.style.setProperty('--signal-x', `${x * 0.45}px`);
+    heroVisual.style.setProperty('--signal-y', `${y * 0.45}px`);
+    heroVisual.style.setProperty('--quality-x', `${x * -0.35}px`);
+    heroVisual.style.setProperty('--quality-y', `${y * -0.35}px`);
+  });
+
+  heroVisual.addEventListener('pointerleave', () => {
+    heroVisual.style.setProperty('--signal-x', '0px');
+    heroVisual.style.setProperty('--signal-y', '0px');
+    heroVisual.style.setProperty('--quality-x', '0px');
+    heroVisual.style.setProperty('--quality-y', '0px');
+  });
+}
