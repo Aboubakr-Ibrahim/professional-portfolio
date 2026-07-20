@@ -12,7 +12,7 @@
   <title>Aboubakr Ibrahim | Biomedical Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700;800&family=Manrope:wght@500;600;700;800&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -20,18 +20,18 @@
 
   <header class="site-header" id="top">
     <a class="brand" href="#top" aria-label="Aboubakr Ibrahim home">
-      <span class="brand-mark">AI</span>
-      <span class="brand-name">Aboubakr Ibrahim</span>
+      <span class="brand-mark">AB</span>
+      <span class="brand-name">Aboubakr Biomedical</span>
     </a>
     <button class="menu-toggle" aria-expanded="false" aria-controls="primary-nav">
       <span></span><span></span><span></span><span class="sr-only">Menu</span>
     </button>
     <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
-      <a href="#about">Profile</a>
+      <a href="#about">About</a>
       <a href="#experience">Experience</a>
       <a href="#projects">Projects</a>
       <a href="#credentials">Credentials</a>
-      <a href="#cv-center">CV</a>
+      <a href="#education">Education</a>
       <a class="nav-cta" href="#contact">Contact</a>
     </nav>
   </header>
@@ -42,13 +42,14 @@
       <div class="hero-glow hero-glow-two"></div>
       <div class="hero-content reveal">
         <p class="eyebrow"><span></span> Biomedical engineer · Systems thinker · Global learner</p>
-        <h1 class="hero-name" id="hero-title"><span>Aboubakr</span><span>Ibrahim</span></h1>
-        <p class="hero-role">Clinical Systems <i>·</i> Medical Device Quality <i>·</i> Healthcare Data</p>
-        <h2 class="hero-hook">I connect the physical and digital layers of safer healthcare.</h2>
-        <p class="hero-lead">From equipment reliability and ISO 13485 thinking to MATLAB, biosignals, and clinical-data research, I bring uncommon range to one clear purpose: making healthcare technology more dependable and understandable.</p>
+        <p class="brand-kicker">ABOUBAKR BIOMEDICAL</p>
+        <h1 class="hero-name" id="hero-title"><span>Engineering</span><span>the Future</span><span>of Healthcare</span></h1>
+        <p class="hero-role">Biomedical Engineer <i>·</i> Clinical Engineering <i>·</i> Medical Imaging <i>·</i> Healthcare AI</p>
+        <h2 class="hero-hook">Engineering the Future of Healthcare.</h2>
+        <p class="hero-lead">A premium biomedical engineering presence built around clinical systems, medical imaging, healthcare AI, quality, and field-ready problem solving.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#projects">See verified work <span aria-hidden="true">↓</span></a>
-          <a class="button button-secondary" href="assets/cv/Aboubakr_Ibrahim_Clinical_Field_Service_CV.pdf" download>Download public CV <span aria-hidden="true">↗</span></a>
+          <a class="button button-primary" href="#projects">Explore My Work <span aria-hidden="true">↓</span></a>
+          <a class="button button-secondary" href="assets/cv/Aboubakr_Ibrahim_Clinical_Field_Service_CV.pdf" download>Download CV <span aria-hidden="true">↗</span></a>
         </div>
         <div class="availability">
           <span class="status-dot"></span>
@@ -83,11 +84,23 @@
       </div>
     </section>
 
-    <section class="section about" id="about">
+    <section class="section about" data-section-label="PROFILE" id="about">
       <div class="section-heading reveal">
         <p class="eyebrow"><span></span> More than a job title</p>
         <h2>Curiosity gave me range. Biomedical engineering gave it purpose.</h2>
         <p>I learn across disciplines because healthcare problems rarely stay inside one box. If your team needs someone who can understand the device, document the process, interrogate the data, and communicate across cultures, this is the combination I bring.</p>
+      </div>
+
+      <div class="about-brand-system reveal">
+        <div class="about-timeline" aria-label="Aboubakr Biomedical timeline">
+          <div><span>01</span><b>Clinical systems</b><small>Hospital equipment reliability and supervised service exposure.</small></div>
+          <div><span>02</span><b>Medical imaging</b><small>X-ray, CT, ultrasound, and radiology workflow context.</small></div>
+          <div><span>03</span><b>Healthcare AI</b><small>MATLAB, signals, patient-level validation, and transparent limitations.</small></div>
+        </div>
+        <div class="about-photo-card">
+          <img src="assets/images/aboubakr-hero.webp" alt="Aboubakr Ibrahim biomedical engineering portrait" loading="lazy" width="1672" height="941">
+          <span>ABOUBAKR BIOMEDICAL</span>
+        </div>
       </div>
 
       <div class="range-manifesto reveal">
@@ -147,7 +160,7 @@
       </div>
     </section>
 
-    <section class="section experience" id="experience">
+    <section class="section experience" data-section-label="FIELD" id="experience">
       <div class="section-heading split-heading reveal">
         <div>
           <p class="eyebrow"><span></span> Documented engineering experience</p>
@@ -228,50 +241,50 @@
           <h3 id="evidence-heading">Five systems. One engineering responsibility.</h3>
           <p>Privacy-screened photographs from supervised internship activities. They document equipment exposure and learning context; they do not imply independent clinical authorization or manufacturer certification.</p>
         </div>
-        <figure class="evidence-item evidence-wide">
+        <figure class="evidence-item evidence-wide evidence-openable" tabindex="0" role="button">
           <img src="assets/images/experience/ct-gantry.webp" alt="Open CT scanner gantry during supervised technical inspection" loading="lazy" width="750" height="1000">
-          <figcaption><b>CT system</b><span>Gantry access, power and ventilation checks</span></figcaption>
+          <figcaption><b>CT system</b><span>Gantry access, power and ventilation checks</span></figcaption><span class="open-photo">Open photo ↗</span>
         </figure>
-        <figure class="evidence-item">
+        <figure class="evidence-item evidence-openable" tabindex="0" role="button">
           <img src="assets/images/experience/ventilator-r860.webp" alt="GE CARESCAPE R860 ventilator screen during supervised functional checks" loading="lazy" width="750" height="1000">
-          <figcaption><b>Critical care</b><span>R860 alarm, flow and pressure investigation</span></figcaption>
+          <figcaption><b>Critical care</b><span>R860 alarm, flow and pressure investigation</span></figcaption><span class="open-photo">Open photo ↗</span>
         </figure>
-        <figure class="evidence-item">
+        <figure class="evidence-item evidence-openable" tabindex="0" role="button">
           <img src="assets/images/experience/defibrillator.webp" alt="Nihon Kohden defibrillator during equipment inspection" loading="lazy" width="750" height="1000">
-          <figcaption><b>Emergency equipment</b><span>Readiness, battery and functional inspection</span></figcaption>
+          <figcaption><b>Emergency equipment</b><span>Readiness, battery and functional inspection</span></figcaption><span class="open-photo">Open photo ↗</span>
         </figure>
-        <figure class="evidence-item">
+        <figure class="evidence-item evidence-openable" tabindex="0" role="button">
           <img src="assets/images/experience/infusion-pump.webp" alt="Sino SN-1800V infusion pump used in equipment training" loading="lazy" width="750" height="1000">
-          <figcaption><b>Infusion systems</b><span>Setup, alarm and operating workflow training</span></figcaption>
+          <figcaption><b>Infusion systems</b><span>Setup, alarm and operating workflow training</span></figcaption><span class="open-photo">Open photo ↗</span>
         </figure>
-        <figure class="evidence-item">
+        <figure class="evidence-item evidence-openable" tabindex="0" role="button">
           <img src="assets/images/experience/ultrasound-controls.webp" alt="Ultrasound control console during supervised equipment assessment" loading="lazy" width="1000" height="750">
-          <figcaption><b>Medical imaging</b><span>Probe, controls and functional assessment</span></figcaption>
+          <figcaption><b>Medical imaging</b><span>Probe, controls and functional assessment</span></figcaption><span class="open-photo">Open photo ↗</span>
         </figure>
-        <figure class="evidence-item">
+        <figure class="evidence-item evidence-openable" tabindex="0" role="button">
           <img src="assets/images/experience/ventilator-e360.webp" alt="Newport e360 ventilator during supervised equipment learning" loading="lazy" width="900" height="1200">
-          <figcaption><b>Ventilation platform</b><span>Modes, settings, alarms and operational context</span></figcaption>
+          <figcaption><b>Ventilation platform</b><span>Modes, settings, alarms and operational context</span></figcaption><span class="open-photo">Open photo ↗</span>
         </figure>
-        <figure class="evidence-item">
+        <figure class="evidence-item evidence-openable" tabindex="0" role="button">
           <img src="assets/images/experience/anesthesia-internal.webp" alt="Internal electronics of an anesthesia-related medical system during supervised inspection" loading="lazy" width="900" height="1200">
-          <figcaption><b>Internal systems</b><span>Boards, power paths, components and fault investigation</span></figcaption>
+          <figcaption><b>Internal systems</b><span>Boards, power paths, components and fault investigation</span></figcaption><span class="open-photo">Open photo ↗</span>
         </figure>
-        <figure class="evidence-item evidence-landscape evidence-focus">
+        <figure class="evidence-item evidence-landscape evidence-focus evidence-openable" tabindex="0" role="button">
           <img src="assets/images/experience/pneumatic-module.webp" alt="Ventilator pneumatic module showing labelled flow and pressure sensors during supervised teardown" loading="lazy" width="1400" height="1050">
-          <figcaption><b>Pneumatic architecture</b><span>Flow sensors, pressure sensing, valves and gas-path relationships</span></figcaption>
+          <figcaption><b>Pneumatic architecture</b><span>Flow sensors, pressure sensing, valves and gas-path relationships</span></figcaption><span class="open-photo">Open photo ↗</span>
         </figure>
-        <figure class="evidence-item evidence-focus">
+        <figure class="evidence-item evidence-focus evidence-openable" tabindex="0" role="button">
           <img src="assets/images/experience/ventilator-teardown.webp" alt="Opened ventilator chassis showing boards, batteries and pneumatic connections" loading="lazy" width="1050" height="1400">
-          <figcaption><b>Full-system teardown</b><span>Electronics, batteries, pneumatic ports and subsystem layout</span></figcaption>
+          <figcaption><b>Full-system teardown</b><span>Electronics, batteries, pneumatic ports and subsystem layout</span></figcaption><span class="open-photo">Open photo ↗</span>
         </figure>
-        <figure class="evidence-item evidence-focus">
+        <figure class="evidence-item evidence-focus evidence-openable" tabindex="0" role="button">
           <img src="assets/images/experience/ventilator-boards.webp" alt="Close view of ventilator circuit boards and internal electronics during supervised maintenance" loading="lazy" width="1050" height="1400">
-          <figcaption><b>Electronic architecture</b><span>Control boards, connectors, power paths and service access</span></figcaption>
+          <figcaption><b>Electronic architecture</b><span>Control boards, connectors, power paths and service access</span></figcaption><span class="open-photo">Open photo ↗</span>
         </figure>
       </div>
     </section>
 
-    <section class="section projects" id="projects">
+    <section class="section projects" data-section-label="CODE" id="projects">
       <div class="section-heading split-heading reveal">
         <div>
           <p class="eyebrow"><span></span> Work you can inspect</p>
@@ -339,7 +352,7 @@
       <p class="project-note reveal">Supporting projects were paid or voluntary MATLAB/research contributions used to expand technical capability. They are not presented as additional graduation projects or clinically validated products.</p>
     </section>
 
-    <section class="section quality" id="quality">
+    <section class="section quality" data-section-label="QMS" id="quality">
       <div class="quality-layout">
         <div class="quality-copy reveal">
           <p class="eyebrow"><span></span> Quality mindset</p>
@@ -359,7 +372,7 @@
       </div>
     </section>
 
-    <section class="section credentials" id="credentials">
+    <section class="section credentials" data-section-label="PROOF" id="credentials">
       <div class="section-heading split-heading reveal">
         <div>
           <p class="eyebrow"><span></span> Selected credentials</p>
@@ -457,20 +470,28 @@
       <p class="credential-note reveal">Some credentials use shortened variations of my complete legal name. Credential images are shown as issued and are never edited to change identity information.</p>
     </section>
 
-    <section class="section skills" id="skills">
+    <section class="section skills" data-section-label="SKILLS" id="skills">
       <div class="section-heading reveal">
-        <p class="eyebrow"><span></span> Capabilities your team can use</p>
-        <h2>Broad technical range. One clear biomedical center.</h2>
+        <p class="eyebrow"><span></span> Interactive technology system</p>
+        <h2>Skills as a living biomedical tech map.</h2>
+        <p>Tap or hover a bubble to reveal where that capability fits across clinical engineering, medical imaging, quality, data, and healthcare AI.</p>
       </div>
-      <div class="skills-grid">
-        <article class="skill-group reveal"><h3>Clinical equipment</h3><div><span>Ventilators</span><span>Patient monitors</span><span>Defibrillators</span><span>Anesthesia</span><span>Infusion pumps</span><span>Ultrasound</span><span>CT systems</span><span>X-ray</span></div></article>
-        <article class="skill-group reveal"><h3>Service & quality</h3><div><span>Preventive maintenance</span><span>Functional testing</span><span>Fault investigation</span><span>ISO 13485</span><span>QMS</span><span>Audit</span><span>CAPA</span><span>Documentation</span></div></article>
-        <article class="skill-group reveal"><h3>Data & signals</h3><div><span>MATLAB</span><span>ECG</span><span>HRV</span><span>QRS detection</span><span>STFT</span><span>Wavelets</span><span>Machine learning</span><span>MIMIC-III</span></div></article>
-        <article class="skill-group reveal"><h3>Professional</h3><div><span>Technical communication</span><span>Research</span><span>Critical thinking</span><span>Fast learning</span><span>Adaptability</span><span>Teamwork</span><span>Arabic</span><span>English</span><span>Turkish</span></div></article>
+      <div class="skill-orbit reveal" aria-label="Interactive skill bubbles">
+        <button class="skill-bubble" data-detail="Reproducible signal and clinical-data workflows.">MATLAB</button>
+        <button class="skill-bubble" data-detail="Automation, analysis, and healthcare-data tooling.">Python</button>
+        <button class="skill-bubble" data-detail="Inspection, service logic, risk, and reliability.">Medical Devices</button>
+        <button class="skill-bubble" data-detail="Imaging-system understanding from radiology exposure.">MRI</button>
+        <button class="skill-bubble" data-detail="Gantry access, power, ventilation, and imaging workflow context.">CT</button>
+        <button class="skill-bubble" data-detail="Responsible models, limitations, validation, and clinical context.">AI</button>
+        <button class="skill-bubble" data-detail="Patient-level separation, missingness, and transparent results.">Data Analysis</button>
+        <button class="skill-bubble" data-detail="ISO 13485, audit thinking, CAPA, documentation, and safety.">Healthcare Quality</button>
+        <button class="skill-bubble" data-detail="QRS, HRV, artifact-aware processing, and waveform evaluation.">ECG</button>
+        <button class="skill-bubble" data-detail="Boards, sensors, connectors, power paths, and fault investigation.">Electronics</button>
       </div>
+      <p class="skill-description reveal" id="skill-description">Hover or tap a skill bubble to see how it supports Aboubakr Biomedical.</p>
     </section>
 
-    <section class="section recommendation" id="recommendation">
+    <section class="section recommendation" data-section-label="WORDS" id="recommendation">
       <div class="section-heading reveal">
         <p class="eyebrow"><span></span> Academic recommendations</p>
         <h2>How I work—seen by the people who taught me.</h2>
@@ -500,7 +521,7 @@
       </div>
     </section>
 
-    <section class="section cv-center" id="cv-center">
+    <section class="section cv-center" data-section-label="CV" id="cv-center">
       <div class="section-heading split-heading reveal">
         <div>
           <p class="eyebrow"><span></span> Role-aligned CV system</p>
@@ -518,16 +539,41 @@
       </div>
     </section>
 
-    <section class="section contact" id="contact">
+    <section class="section education" data-section-label="EDU" id="education">
+      <div class="section-heading split-heading reveal">
+        <div>
+          <p class="eyebrow"><span></span> Education record</p>
+          <h2>Biomedical engineering foundation with international context.</h2>
+        </div>
+        <p>Elegant university-record styling keeps education aligned with the same premium dark identity while using a blue-to-white knowledge accent.</p>
+      </div>
+      <div class="education-timeline reveal">
+        <article>
+          <span class="timeline-dot"></span>
+          <small>B.S. Biomedical Engineering</small>
+          <h3>Işık University</h3>
+          <p>Biomedical engineering education connected to clinical systems, signals, medical-device quality, and research communication.</p>
+        </article>
+        <article>
+          <span class="timeline-dot"></span>
+          <small>International pathway</small>
+          <h3>Egypt · Türkiye · Global mobility</h3>
+          <p>Cross-cultural experience supporting international roles, relocation, and field-service travel.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section contact" data-section-label="CONTACT" id="contact">
       <div class="contact-panel reveal">
         <div>
           <p class="eyebrow"><span></span> Start a conversation</p>
-          <h2>Hiring for reliability, quality, applications, or biomedical data?</h2>
+          <h2>Let's Build<br>Healthcare Together</h2>
           <p>Bring me the role, the technical problem, or the learning curve. I bring a verified biomedical foundation, disciplined curiosity, international adaptability, and the drive to become useful quickly.</p>
           <div class="contact-actions">
             <a class="button button-primary" href="mailto:abubakrhsen.ah@gmail.com">Email me</a>
             <a class="button button-secondary" href="https://www.linkedin.com/in/aboubakr-ibrahim-45435a246" target="_blank" rel="noopener">LinkedIn ↗</a>
             <a class="button button-secondary" href="https://github.com/Aboubakr-Ibrahim" target="_blank" rel="noopener">GitHub ↗</a>
+            <a class="button button-secondary" href="mailto:abubakrhsen.ah@gmail.com?subject=WhatsApp%20contact%20request">WhatsApp request ↗</a>
           </div>
         </div>
         <div class="contact-facts">
@@ -541,8 +587,8 @@
   </main>
 
   <footer>
-    <a class="brand" href="#top"><span class="brand-mark">AI</span><span class="brand-name">Aboubakr Ibrahim</span></a>
-    <p>Biomedical engineering · Clinical systems · Device quality · Healthcare data</p>
+    <a class="brand" href="#top"><span class="brand-mark">AB</span><span class="brand-name">Aboubakr Biomedical</span></a>
+    <p>Engineering the Future of Healthcare</p>
     <small>© <span id="year"></span> Aboubakr Ibrahim. Research projects are educational portfolio work, not medical devices.</small>
   </footer>
 
@@ -550,6 +596,12 @@
     <button class="modal-close" aria-label="Close certificate preview">×</button>
     <img id="modal-image" src="" alt="">
     <div><span>Selected credential</span><h3 id="modal-title"></h3><p>Displayed as issued. Click outside the panel or press Escape to close.</p></div>
+  </dialog>
+
+  <dialog class="photo-modal" id="photo-modal" aria-labelledby="photo-modal-title">
+    <button class="modal-close photo-modal-close" aria-label="Close internship photo preview">×</button>
+    <img id="photo-modal-image" src="" alt="">
+    <div><span>Internship field evidence</span><h3 id="photo-modal-title"></h3><p id="photo-modal-caption">Click outside the panel or press Escape to close.</p></div>
   </dialog>
 
   <script src="script.js"></script>

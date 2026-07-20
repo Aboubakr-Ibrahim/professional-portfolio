@@ -7,11 +7,21 @@ progress.className = 'scroll-progress';
 progress.setAttribute('aria-hidden', 'true');
 document.body.prepend(progress);
 
-window.addEventListener('scroll', () => {
+let scrollTicking = false;
+const updateScrollState = () => {
   header.classList.toggle('scrolled', window.scrollY > 25);
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
   progress.style.transform = `scaleX(${scrollable > 0 ? window.scrollY / scrollable : 0})`;
+  scrollTicking = false;
+};
+
+window.addEventListener('scroll', () => {
+  if (!scrollTicking) {
+    window.requestAnimationFrame(updateScrollState);
+    scrollTicking = true;
+  }
 }, { passive: true });
+updateScrollState();
 
 menuButton.addEventListener('click', () => {
   const open = menuButton.getAttribute('aria-expanded') === 'true';
@@ -86,6 +96,8 @@ if (heroVisual && canAnimateDepth) {
     const bounds = heroVisual.getBoundingClientRect();
     const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 18;
     const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 18;
+    heroVisual.style.setProperty('--portrait-ry', `${x * 0.22}deg`);
+    heroVisual.style.setProperty('--portrait-rx', `${y * -0.18}deg`);
     heroVisual.style.setProperty('--signal-x', `${x * 0.45}px`);
     heroVisual.style.setProperty('--signal-y', `${y * 0.45}px`);
     heroVisual.style.setProperty('--quality-x', `${x * -0.35}px`);
@@ -93,6 +105,8 @@ if (heroVisual && canAnimateDepth) {
   });
 
   heroVisual.addEventListener('pointerleave', () => {
+    heroVisual.style.setProperty('--portrait-rx', '0deg');
+    heroVisual.style.setProperty('--portrait-ry', '0deg');
     heroVisual.style.setProperty('--signal-x', '0px');
     heroVisual.style.setProperty('--signal-y', '0px');
     heroVisual.style.setProperty('--quality-x', '0px');
@@ -148,4 +162,67 @@ document.querySelectorAll('main > .section').forEach((section, index, sections) 
   flow.setAttribute('aria-hidden', 'true');
   flow.innerHTML = '<svg viewBox="0 0 420 38"><path d="M0 20h145l10-10 12 22 15-30 18 18h42l8-8 9 8h161"/></svg>';
   section.after(flow);
+});
+
+const touchFeedbackTargets = document.querySelectorAll('.hero-visual, .motion-card, .button, .credential-card, .cv-variants a');
+touchFeedbackTargets.forEach(target => {
+  target.addEventListener('pointerdown', () => target.classList.add('touch-active'), { passive: true });
+  ['pointerup', 'pointercancel', 'pointerleave', 'blur'].forEach(type => {
+    target.addEventListener(type, () => target.classList.remove('touch-active'), { passive: true });
+  });
+});
+
+const photoModal = document.querySelector('#photo-modal');
+const photoModalImage = document.querySelector('#photo-modal-image');
+const photoModalTitle = document.querySelector('#photo-modal-title');
+const photoModalCaption = document.querySelector('#photo-modal-caption');
+
+if (photoModal && photoModalImage && photoModalTitle && photoModalCaption) {
+  document.querySelectorAll('.evidence-openable').forEach(item => {
+    const image = item.querySelector('img');
+    const title = item.querySelector('figcaption b');
+    const caption = item.querySelector('figcaption span');
+
+    item.addEventListener('pointermove', event => {
+      const bounds = item.getBoundingClientRect();
+      item.style.setProperty('--photo-x', `${((event.clientX - bounds.left) / bounds.width) * 100}%`);
+      item.style.setProperty('--photo-y', `${((event.clientY - bounds.top) / bounds.height) * 100}%`);
+    }, { passive: true });
+
+    const openPhoto = () => {
+      photoModalImage.src = image.currentSrc || image.src;
+      photoModalImage.alt = image.alt;
+      photoModalTitle.textContent = title?.textContent || 'Internship photo';
+      photoModalCaption.textContent = caption?.textContent || 'Click outside the panel or press Escape to close.';
+      photoModal.showModal();
+    };
+
+    item.addEventListener('click', openPhoto);
+    item.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openPhoto();
+      }
+    });
+  });
+
+  document.querySelector('.photo-modal-close')?.addEventListener('click', () => photoModal.close());
+  photoModal.addEventListener('click', event => {
+    const bounds = photoModal.getBoundingClientRect();
+    const outside = event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
+    if (outside) photoModal.close();
+  });
+}
+
+const skillDescription = document.querySelector('#skill-description');
+const skillBubbles = document.querySelectorAll('.skill-bubble');
+skillBubbles.forEach(bubble => {
+  const updateSkill = () => {
+    skillBubbles.forEach(item => item.classList.remove('active'));
+    bubble.classList.add('active');
+    if (skillDescription) skillDescription.textContent = bubble.dataset.detail;
+  };
+  bubble.addEventListener('pointerenter', updateSkill);
+  bubble.addEventListener('focus', updateSkill);
+  bubble.addEventListener('click', updateSkill);
 });
