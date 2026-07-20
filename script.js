@@ -100,7 +100,7 @@ if (heroVisual && canAnimateDepth) {
   });
 }
 
-const motionTargets = document.querySelectorAll('.pillar, .experience-card, .project-card, .credential-card, .skill-group, .cv-primary, .cv-variants a, .evidence-item');
+const motionTargets = document.querySelectorAll('.pillar, .experience-card, .project-card, .credential-card, .skill-group, .cv-primary, .cv-variants a, .evidence-item, .recommendation-card, .quality-list > div');
 motionTargets.forEach((target, index) => {
   target.classList.add('motion-card');
   if (target.classList.contains('reveal')) target.style.transitionDelay = `${Math.min(index % 4, 3) * 55}ms`;
