@@ -154,11 +154,6 @@ motionTargets.forEach((target, index) => {
 document.querySelectorAll('.button').forEach(button => button.classList.add('magnetic'));
 
 if (canAnimateDepth) {
-  window.addEventListener('pointermove', event => {
-    document.body.style.setProperty('--cursor-x', `${event.clientX}px`);
-    document.body.style.setProperty('--cursor-y', `${event.clientY}px`);
-  }, { passive: true });
-
   motionTargets.forEach(target => {
     target.addEventListener('pointermove', event => {
       const bounds = target.getBoundingClientRect();
