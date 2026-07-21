@@ -1,27 +1,20 @@
 const header = document.querySelector('.site-header');
 const menuButton = document.querySelector('.menu-toggle');
 const nav = document.querySelector('.primary-nav');
+const commandPalette = document.querySelector('#command-palette');
+const commandTrigger = document.querySelector('.command-trigger');
+const commandClose = document.querySelector('.command-close');
 
 const progress = document.createElement('div');
 progress.className = 'scroll-progress';
 progress.setAttribute('aria-hidden', 'true');
 document.body.prepend(progress);
 
-let scrollTicking = false;
-const updateScrollState = () => {
+window.addEventListener('scroll', () => {
   header.classList.toggle('scrolled', window.scrollY > 25);
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
   progress.style.transform = `scaleX(${scrollable > 0 ? window.scrollY / scrollable : 0})`;
-  scrollTicking = false;
-};
-
-window.addEventListener('scroll', () => {
-  if (!scrollTicking) {
-    window.requestAnimationFrame(updateScrollState);
-    scrollTicking = true;
-  }
 }, { passive: true });
-updateScrollState();
 
 menuButton.addEventListener('click', () => {
   const open = menuButton.getAttribute('aria-expanded') === 'true';
@@ -35,6 +28,27 @@ nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
   menuButton.setAttribute('aria-expanded', 'false');
   document.body.classList.remove('menu-open');
 }));
+
+const openCommandPalette = () => {
+  if (!commandPalette || commandPalette.open) return;
+  commandPalette.showModal();
+  commandPalette.querySelector('a')?.focus();
+};
+
+commandTrigger?.addEventListener('click', openCommandPalette);
+commandClose?.addEventListener('click', () => commandPalette.close());
+commandPalette?.querySelectorAll('a').forEach(link => link.addEventListener('click', () => commandPalette.close()));
+commandPalette?.addEventListener('click', event => {
+  const bounds = commandPalette.getBoundingClientRect();
+  if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) commandPalette.close();
+});
+
+document.addEventListener('keydown', event => {
+  if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+    event.preventDefault();
+    openCommandPalette();
+  }
+});
 
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && nav.classList.contains('open')) {
@@ -55,6 +69,20 @@ const revealObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.12 });
 
 document.querySelectorAll('.reveal').forEach(element => revealObserver.observe(element));
+
+const navSections = [...document.querySelectorAll('main section[id]')];
+const navLinks = [...nav.querySelectorAll('a[href^="#"]')];
+const navigationObserver = new IntersectionObserver(entries => {
+  const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+  if (!visible) return;
+  navLinks.forEach(link => {
+    const target = link.getAttribute('href').slice(1);
+    const active = target === visible.target.id || (target === 'top' && visible.target.id === 'home');
+    link.classList.toggle('active', active);
+    if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
+  });
+}, { rootMargin: '-20% 0px -65%', threshold: [0, .15, .4] });
+navSections.forEach(section => navigationObserver.observe(section));
 
 const filterButtons = document.querySelectorAll('.filter-button');
 const credentials = document.querySelectorAll('.credential-card');
@@ -79,7 +107,7 @@ credentials.forEach(card => card.addEventListener('click', () => {
   modal.showModal();
 }));
 
-document.querySelector('.modal-close').addEventListener('click', () => modal.close());
+document.querySelector('.modal-close')?.addEventListener('click', () => modal.close());
 modal.addEventListener('click', event => {
   const bounds = modal.getBoundingClientRect();
   const outside = event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
@@ -96,8 +124,6 @@ if (heroVisual && canAnimateDepth) {
     const bounds = heroVisual.getBoundingClientRect();
     const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 18;
     const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 18;
-    heroVisual.style.setProperty('--portrait-ry', `${x * 0.22}deg`);
-    heroVisual.style.setProperty('--portrait-rx', `${y * -0.18}deg`);
     heroVisual.style.setProperty('--signal-x', `${x * 0.45}px`);
     heroVisual.style.setProperty('--signal-y', `${y * 0.45}px`);
     heroVisual.style.setProperty('--quality-x', `${x * -0.35}px`);
@@ -105,8 +131,6 @@ if (heroVisual && canAnimateDepth) {
   });
 
   heroVisual.addEventListener('pointerleave', () => {
-    heroVisual.style.setProperty('--portrait-rx', '0deg');
-    heroVisual.style.setProperty('--portrait-ry', '0deg');
     heroVisual.style.setProperty('--signal-x', '0px');
     heroVisual.style.setProperty('--signal-y', '0px');
     heroVisual.style.setProperty('--quality-x', '0px');
@@ -114,7 +138,7 @@ if (heroVisual && canAnimateDepth) {
   });
 }
 
-const motionTargets = document.querySelectorAll('.pillar, .experience-card, .project-card, .credential-card, .skill-group, .cv-primary, .cv-variants a, .evidence-item, .recommendation-card, .quality-list > div');
+const motionTargets = document.querySelectorAll('.pillar, .experience-card, .project-card, .credential-card, .skill-group, .cv-primary, .cv-variants a, .evidence-item, .recommendation-card, .quality-list > div, .module-card');
 motionTargets.forEach((target, index) => {
   target.classList.add('motion-card');
   if (target.classList.contains('reveal')) target.style.transitionDelay = `${Math.min(index % 4, 3) * 55}ms`;
@@ -163,53 +187,3 @@ document.querySelectorAll('main > .section').forEach((section, index, sections) 
   flow.innerHTML = '<svg viewBox="0 0 420 38"><path d="M0 20h145l10-10 12 22 15-30 18 18h42l8-8 9 8h161"/></svg>';
   section.after(flow);
 });
-
-const touchFeedbackTargets = document.querySelectorAll('.hero-visual, .motion-card, .button, .credential-card, .cv-variants a');
-touchFeedbackTargets.forEach(target => {
-  target.addEventListener('pointerdown', () => target.classList.add('touch-active'), { passive: true });
-  ['pointerup', 'pointercancel', 'pointerleave', 'blur'].forEach(type => {
-    target.addEventListener(type, () => target.classList.remove('touch-active'), { passive: true });
-  });
-});
-
-const photoModal = document.querySelector('#photo-modal');
-const photoModalImage = document.querySelector('#photo-modal-image');
-const photoModalTitle = document.querySelector('#photo-modal-title');
-const photoModalCaption = document.querySelector('#photo-modal-caption');
-
-if (photoModal && photoModalImage && photoModalTitle && photoModalCaption) {
-  document.querySelectorAll('.evidence-openable').forEach(item => {
-    const image = item.querySelector('img');
-    const title = item.querySelector('figcaption b');
-    const caption = item.querySelector('figcaption span');
-
-    item.addEventListener('pointermove', event => {
-      const bounds = item.getBoundingClientRect();
-      item.style.setProperty('--photo-x', `${((event.clientX - bounds.left) / bounds.width) * 100}%`);
-      item.style.setProperty('--photo-y', `${((event.clientY - bounds.top) / bounds.height) * 100}%`);
-    }, { passive: true });
-
-    const openPhoto = () => {
-      photoModalImage.src = image.currentSrc || image.src;
-      photoModalImage.alt = image.alt;
-      photoModalTitle.textContent = title?.textContent || 'Internship photo';
-      photoModalCaption.textContent = caption?.textContent || 'Click outside the panel or press Escape to close.';
-      photoModal.showModal();
-    };
-
-    item.addEventListener('click', openPhoto);
-    item.addEventListener('keydown', event => {
-      if (event.key === 'Enter' || event.key === ' ') {
-        event.preventDefault();
-        openPhoto();
-      }
-    });
-  });
-
-  document.querySelector('.photo-modal-close')?.addEventListener('click', () => photoModal.close());
-  photoModal.addEventListener('click', event => {
-    const bounds = photoModal.getBoundingClientRect();
-    const outside = event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom;
-    if (outside) photoModal.close();
-  });
-}
