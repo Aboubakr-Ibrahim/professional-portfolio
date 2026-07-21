@@ -75,6 +75,7 @@ const navLinks = [...nav.querySelectorAll('a[href^="#"]')];
 const navigationObserver = new IntersectionObserver(entries => {
   const visible = entries.filter(entry => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
   if (!visible) return;
+  document.body.dataset.section = visible.target.id;
   navLinks.forEach(link => {
     const target = link.getAttribute('href').slice(1);
     const active = target === visible.target.id || (target === 'top' && visible.target.id === 'home');
@@ -142,6 +143,12 @@ const motionTargets = document.querySelectorAll('.pillar, .experience-card, .pro
 motionTargets.forEach((target, index) => {
   target.classList.add('motion-card');
   if (target.classList.contains('reveal')) target.style.transitionDelay = `${Math.min(index % 4, 3) * 55}ms`;
+  const press = () => target.classList.add('is-pressed');
+  const release = () => target.classList.remove('is-pressed');
+  target.addEventListener('pointerdown', press);
+  target.addEventListener('pointerup', release);
+  target.addEventListener('pointercancel', release);
+  target.addEventListener('pointerleave', release);
 });
 
 document.querySelectorAll('.button').forEach(button => button.classList.add('magnetic'));
